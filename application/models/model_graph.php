@@ -17,9 +17,15 @@ class Model_Graph extends Model {
 			'current_date' => null,
 		);
 		$pdo = Session::get_sql_connection();
+		// Получение текущей даты
 		$stmt = $pdo->query(
 			"SELECT TO_CHAR(operation_date, 'dd.mm.yyyy') date FROM public.operdate WHERE current IS TRUE");
 		$data['current_date'] = $stmt->fetch()['date'];
+		// Получение личных данных клиента
+		$stmt = $pdo->prepare('SELECT * FROM public.client WHERE client_uuid = :client_uuid LIMIT 1');
+		$stmt->execute(array('client_uuid' => $client_uuid));
+		$data['client'] = $stmt->fetch();
+		// Получение данных по кредиту
 		$stmt = $pdo->prepare("
 			SELECT c.credit_id, c.open_date, t.description, t.rate, t.ovd_rate, cur.isocode,
 				c.current_account_number, c.main_account_number, c.main_perc_account_number, 
