@@ -41,7 +41,7 @@ class Controller_Auth extends Controller {
 		Session::safe_session_start();
 		$data = $this->model->get_data(null, null, $_SESSION['message']);
 		unset($_SESSION['message']);
-		$this->view->generate('', 'view.php', $data);
+		$this->view->generate('', 'view_auth.php', $data);
 	}
 
 	/**
