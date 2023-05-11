@@ -5,7 +5,7 @@
  *     title="Controller_Auth",
  *     description="Контроллер для взаимодействия со страницей входа",
  *     @OA\Xml(
- *         name="Controller_Operator"
+ *         name="Controller_Auth"
  *     )
  * )
  */
