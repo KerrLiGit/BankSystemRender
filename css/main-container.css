@@ -1,0 +1,12 @@
+.main-container{
+	display: flex;
+	justify-content: center;
+}
+.main-container>.column1,
+.main-container>.column2{
+	flex-direction: column;
+	width: 100%;
+}
+.main-container>.air{
+	margin: 2%;
+}
