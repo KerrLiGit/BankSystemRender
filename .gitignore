@@ -1,0 +1,5 @@
+/.idea
+/vendor
+/!log.txt
+/composer.phar
+/composer.lock
