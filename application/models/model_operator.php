@@ -53,7 +53,7 @@ class Model_Operator extends Model {
 			'passport' => $client['passport'],
 			'passgiven' => htmlspecialchars($client['passgiven']),
 			'passcode' => $client['passcode'],
-			'passdate' => $_POST['passdate'],
+			'passdate' => $client['passdate'] != '' ? $client['passdate'] : null,
 			'sex' => $client['sex'],
 			'birthdate' => $client['birthdate'] != '' ? $client['birthdate'] : null,
 			'birthplace' => htmlspecialchars($client['birthplace']),

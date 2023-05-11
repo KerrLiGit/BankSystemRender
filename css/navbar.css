@@ -21,6 +21,7 @@
 	min-height: 50px;
 	justify-content: space-between;
 	color: darkblue;
+	text-align: center;
 }
 .role-name-container>.role-name,
 .role-name-container>.client-info{
