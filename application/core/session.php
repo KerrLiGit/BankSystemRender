@@ -5,14 +5,14 @@ class Session {
 	private static $pdo = null;
 
 	public static function get_sql_connection() {
-		$dsn = "pgsql:host=dpg-cheegj5269v75d7redr0-a.oregon-postgres.render.com;port=5432;dbname=bank_base";
+		$dsn = "pgsql:host=localhost;port=5432;dbname=bank_base";
 		$opt = [
 			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 			PDO::ATTR_EMULATE_PREPARES   => false,
 		];
 		if (self::$pdo === null) {
-			return new PDO($dsn, 'anna', 'g1P9Kzqd3Lb9ALAMKVKZPeIgG945VE0o', $opt);
+			return new PDO($dsn, 'postgres', 'postgres', $opt);
 		}
 		/*$stmt = $pdo->query('SELECT * FROM emprole');
 		while ($row = $stmt->fetch()) {

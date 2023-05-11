@@ -1,0 +1,632 @@
+openapi: 3.0.0
+info:
+  title: 'Документация к проекту BankSystem'
+  description: 'Система проекта основана на API и имеет некоторое количество endpoint, которые и будут описаны в данной документации'
+  contact:
+    email: bogatyreva_aa@main.ru
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8004'
+    description: 'OpenApi host'
+paths:
+  /auth:
+    get:
+      tags:
+        - auth
+      summary: 'Страница авторизации'
+      description: 'Страница, позволяющая оператору выполнить авторизацию или выйти из аккаунта.'
+      operationId: auth
+      responses:
+        '200':
+          description: Success
+          content:
+            html: {  }
+  /auth/signin:
+    post:
+      tags:
+        - auth
+      summary: Вход
+      description: 'Функционал в виде формы, позволяющий сотруднику выполнить авторизацию.'
+      operationId: auth_signin
+      parameters:
+        -
+          name: login
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: pass
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Wrong login or password'
+          content:
+            application/json: {  }
+  /auth/signout:
+    post:
+      tags:
+        - auth
+      summary: Выход
+      description: 'Функционал в виде ссылки в панели авигации, позволяющий сотруднику выйти из аккаунта.'
+      operationId: auth_signout
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+  /client:
+    get:
+      tags:
+        - client
+      summary: 'Страница оператора по работе с клиентом'
+      description: 'Страница оператора, на которой присутствует функцилнал для работы с клиентом.'
+      operationId: client
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: client_uuid
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            html: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            html: {  }
+  /client/edit:
+    post:
+      tags:
+        - client
+      summary: 'Редактирование клиентских даннных'
+      description: 'Функционал в виде формы, позволяющий отредактировать личные данные клиента.'
+      operationId: client_edit
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: client_uuid
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/create_account:
+    post:
+      tags:
+        - client
+      summary: 'Создание счета'
+      description: 'Функционал в виде формы, позволяющий создать счет клиента в нужной валюте.'
+      operationId: client_create_account
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: client_uuid
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/close_account:
+    post:
+      tags:
+        - client
+      summary: 'Закрытие счета'
+      description: 'Функционал в виде формы, позволяющий закрыть счет клиента с нулевым балансом по его номеру.'
+      operationId: client_close_account
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: account_number
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/push_account:
+    post:
+      tags:
+        - client
+      summary: 'Пополнение счета в кассе'
+      description: 'Функционал в виде формы, позволяющий пополнить счет клиента на требуемую сумму при помощи кассы по номеру счета.'
+      operationId: client_push_account
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: credit_account_number
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: sum
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/pop_account:
+    post:
+      tags:
+        - client
+      summary: 'Снятие средств со счета в кассе'
+      description: 'Функционал в виде формы, позволяющий снять средства со счета клиента при помощи кассы по номеру счета.'
+      operationId: client_pop_account
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: debit_account_number
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: sum
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/transaction_in:
+    post:
+      tags:
+        - client
+      summary: 'Перевод средств между своими счетами'
+      description: 'Функционал в виде формы, позволяющий перевести средства между счетами клиента по номерам счета.'
+      operationId: client_transaction_in
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: debit_account_number
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: credit_account_number
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: sum
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/transaction_out:
+    post:
+      tags:
+        - client
+      summary: 'Перевод средств по ноеру телефона'
+      description: 'Функционал в виде формы, позволяющий перевести средства другому клиенту по номерам телефона.'
+      operationId: client_transaction_out
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: debit_account_number
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: credit_phone
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: sum
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/open_deposit:
+    post:
+      tags:
+        - client
+      summary: 'Открытие вклада'
+      description: 'Функционал в виде формы, позволяющий создать вклад требуемого типа для клиента.'
+      operationId: client_open_deposit
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: client_uuid
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: type
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: debit_account_number
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: sum
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/close_deposit:
+    post:
+      tags:
+        - client
+      summary: 'Закрытие вклада'
+      description: 'Функционал в виде формы, позволяющий закрыть вклад и получить средства с него на счет.'
+      operationId: client_close_deposit
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: deposit_id
+          in: query
+          required: true
+          schema:
+            type: number
+        -
+          name: account_number
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/open_credit:
+    post:
+      tags:
+        - client
+      summary: 'Открытие кредита'
+      description: 'Функционал в виде формы, позволяющий открыть кредит требуемого типа для клиента.'
+      operationId: client_open_credit
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: client_uuid
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: type
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: sum
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /client/close_credit:
+    post:
+      tags:
+        - client
+      summary: 'Закрытие кредита'
+      description: 'Функционал в виде формы, позволяющий закрыть кредит, если нет задолженности по нему.'
+      operationId: client_close_credit
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: credit_id
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            application/json: {  }
+  /graph:
+    get:
+      tags:
+        - graph
+      summary: 'Страница оператора для просмотра состояния кредита клиента'
+      description: 'Страница оператора, на которой присутствует информация по кредиту клиента.'
+      operationId: graph
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: client_uuid
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: credit_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            html: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника, или отсутствует текущий клиент)'
+          content:
+            html: {  }
+  /operator:
+    get:
+      tags:
+        - operator
+      summary: 'Страница оператора'
+      description: 'Страница оператора, на которой присутствует функцилнал, предшествцющий работе с клиентом.'
+      operationId: operator
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            html: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника)'
+          content:
+            html: {  }
+  /operator/find_by_passport:
+    post:
+      tags:
+        - operator
+      summary: 'Клиент по паспорту'
+      description: 'Функционал в виде формы, позволяющий найти uuid клиента по паспорту для дальнейшей работы с ним.'
+      operationId: operator_find_by_passport
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: passport
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника)'
+          content:
+            application/json: {  }
+  /operator/create_client:
+    post:
+      tags:
+        - operator
+      summary: 'Создание клиента'
+      description: 'Функционал в виде формы, позволяющий создать клиента по паспорту для дальнейшей работы с ним.'
+      operationId: operator_create_client
+      parameters:
+        -
+          name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: client_parameters
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '403':
+          description: 'Unauthorized (Неверный токен или роль сотрудника)'
+          content:
+            application/json: {  }
+components:
+  schemas:
+    Controller_Auth:
+      title: Controller_Auth
+      description: 'Контроллер для взаимодействия со страницей входа'
+      xml:
+        name: Controller_Operator
+    Controller_Client:
+      title: Controller_Client
+      description: 'Контроллер для взаимодействия оператора со страницей клиента'
+      xml:
+        name: Controller_Client
+    Controller_Graph:
+      title: Controller_Auth
+      description: 'Контроллер для просмотра состояния кредита'
+      xml:
+        name: Controller_Operator
+    Controller_Operator:
+      title: Controller_Operator
+      description: 'Контроллер для взаимодействия со страницей оператора'
+      xml:
+        name: Controller_Operator
+externalDocs:
+  description: 'Ссылка на GitHub'
+  url: 'https://github.com/KerrLiGit/BankSystemProject'
