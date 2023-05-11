@@ -8,81 +8,81 @@
 					<p>Редактировать профиль клиента</p>
 				</div>
 				<form action="/client/edit" method="POST">
-                    <input type="hidden" name = "client_uuid" value="<?php echo $data['client']['client_uuid'] ?>">
+					<input type="hidden" name="client_uuid" value="<?php echo $data['client']['client_uuid'] ?>">
 					<label>Фамилия, имя, отчество</label>
 					<label>
-                        <input type="text" required="required" name="name" placeholder="Иванов Иван Иванович"
-                            value="<?php echo $data['client']['name'] ?>">
-                    </label>
+						<input type="text" required="required" name="name" placeholder="Иванов Иван Иванович"
+							value="<?php echo $data['client']['name'] ?>">
+					</label>
 
 					<label>Телефон</label>
 					<label>
-                        <input type="tel" required="required" name="phone" placeholder="+78005553535"
-                            value="<?php echo $data['client']['phone'] ?>">
-                    </label>
+						<input type="tel" required="required" name="phone" placeholder="+78005553535"
+							value="<?php echo $data['client']['phone'] ?>">
+						</label>
 
 					<label>Номер паспорта</label>
 					<label>
-                        <input pattern="^[0-9]{4} [0-9]{6}$" required="required" name="passport"
-                               placeholder="Серия и номер" value="<?php echo $data['client']['passport'] ?>">
-                    </label>
+						<input pattern="^[0-9]{4} [0-9]{6}$" required="required" name="passport"
+							placeholder="Серия и номер" value="<?php echo $data['client']['passport'] ?>">
+					</label>
 
 					<label>Кем выдан</label>
 					<label>
-                        <input type="text" name="passgiven" placeholder="Название подразделения"
-                               value="<?php echo $data['client']['passgiven'] ?>">
-                    </label>
+						<input type="text" name="passgiven" placeholder="Название подразделения"
+							value="<?php echo $data['client']['passgiven'] ?>">
+					</label>
 
 					<label>Код подразделения</label>
 					<label>
-                        <input pattern="^([0-9]{3}\-[0-9]{3}|)$" name="passcode" placeholder="000-000"
-                               value="<?php echo $data['client']['passcode'] ?>">
-                    </label>
+						<input pattern="^([0-9]{3}\-[0-9]{3}|)$" name="passcode" placeholder="000-000"
+							value="<?php echo $data['client']['passcode'] ?>">
+					</label>
 
 					<label>Дата выдачи</label>
 					<label>
-                        <input type="date" name="passdate"
-                               value="<?php echo $data['client']['passdate'] ?>">
-                    </label>
+						<input type="date" name="passdate"
+							value="<?php echo $data['client']['passdate'] ?>">
+						</label>
 
 					<label>Пол</label>
 					<label>
-                        <input pattern="^[МЖ]$" name="sex" placeholder="М/Ж"
-                               value="<?php echo $data['client']['sex'] ?>">
-                    </label>
+						<input pattern="^[МЖ]$" name="sex" placeholder="М/Ж"
+							value="<?php echo $data['client']['sex'] ?>">
+					</label>
 
 					<label>Дата рождения</label>
 					<label>
-                        <input type="date" name="birthdate"
-                               value="<?php echo $data['client']['birthdate'] ?>">
-                    </label>
+						<input type="date" name="birthdate"
+							value="<?php echo $data['client']['birthdate'] ?>">
+					</label>
 
 					<label>Место рождения</label>
 					<label>
-                        <input type="text" name="birthplace" placeholder="Регион, город"
-                               value="<?php echo $data['client']['birthplace'] ?>">
-                    </label>
+						<input type="text" name="birthplace" placeholder="Регион, город"
+							value="<?php echo $data['client']['birthplace'] ?>">
+						</label>
 
 					<label>Адрес регистрации</label>
 					<label>
-                        <input type="text" name="reg" placeholder="Индекс, регион, город, улица, дом, квартира"
-                               value="<?php echo $data['client']['registration'] ?>">
-                    </label>
+						<input type="text" name="reg" placeholder="Индекс, регион, город, улица, дом, квартира"
+							value="<?php echo $data['client']['registration'] ?>">
+					</label>
 
 					<label>Адрес проживания</label>
 					<label>
-                        <input type="text" name="address" placeholder="Индекс, регион, город, улица, дом, квартира"
-                               value="<?php echo $data['client']['address'] ?>">
-                    </label>
+						<input type="text" name="address" placeholder="Индекс, регион, город, улица, дом, квартира"
+							value="<?php echo $data['client']['address'] ?>">
+						</label>
 
 					<label>Электронная почта</label>
 					<label>
-                        <input type="email" name="email" placeholder="example@email.com"
-                               value="<?php echo $data['client']['email'] ?>">
-                    </label>
+						<input type="email" name="email" placeholder="example@email.com"
+							value="<?php echo $data['client']['email'] ?>">
+					</label>
 
 					<input class="button" type="submit" value="Сохранить"
-                           title="Сохранить изменения персональных данных клиента">
+						title="Сохранить изменения персональных данных клиента">
 					<label class="report"><?php echo $data['message']['edit'] ?></label>
 				</form>
 			</div>
@@ -94,7 +94,7 @@
 				<form action="/client/create_account" method="POST">
 					<div class="form-content">
                         <input type="hidden" name="client_uuid" value="<?php echo $data['client']['client_uuid'] ?>">
-						<p>Выберите валюту нового счёта</p>
+						<label>Выберите валюту нового счёта</label>
 						<?php
                         $cnt = 0;
                         foreach ($data['account_list']['currency'] as $currency) {
@@ -116,7 +116,7 @@
 				<form action="/client/close_account" method="POST">
 					<?php if (count($data['account_list']['close']) > 0) { /* есть счета 40817 с нулевым остатком */ ?>
 					<div class="form-content">
-						<p>Выберите счет</p>
+						<label>Выберите счет</label>
 						<label><div class="select-block"><select name="account_number" required>
 							<option selected></option>
 							<?php
@@ -143,7 +143,7 @@
 				<form action="/client/push_account" method="POST">
 					<?php if (count($data['account_list']['all']) > 0) { /* есть счета 40817 */ ?>
 					<div class="form-content">
-						<p>Выберите счет</p>
+						<label>Выберите счет</label>
 						<label><div class="select-block"><select name="credit_account_number" required>
 							<option selected></option>
 							<?php
@@ -176,7 +176,7 @@
 				<form action="/client/pop_account" method="POST">
 					<?php if (count($data['account_list']['all']) > 0) { /* есть счета 40817 */  ?>
 					<div class="form-content">
-						<p>Выберите счет</p>
+						<label>Выберите счет</label>
 						<label><div class="select-block"><select name="debit_account_number" required>
 							<option selected></option>
 							<?php
@@ -209,7 +209,7 @@
 				<div class="form-name"><p>Перевод средств между своими счетами</p></div>
 				<form action="/client/transaction_in" method="POST">
 					<?php if (count($data['account_list']['all']) > 0) { /* есть счета 40817 */  ?>
-					<div class="form-content"><p>Счет отправки перевода</p>
+					<div class="form-content"><label>Счет отправки перевода</label>
 						<label><div class="select-block"><select name="debit_account_number" required>
 							<option selected></option>
 							<?php
@@ -221,7 +221,7 @@
 							?>
 						</select></div></label>
 					</div>
-					<div class="form-content"><p>Счет приема перевода</p>
+					<div class="form-content"><label>Счет приема перевода</label>
 						<label><div class="select-block"><select name="credit_account_number" required>
 							<option selected></option>
                             <?php
@@ -253,7 +253,7 @@
 				<div class="form-name"><p>Перевод средств другому клиенту</p></div>
 				<form action="/client/transaction_out" method="POST">
 					<?php if (count($data['account_list']['all']) > 0) { /* есть счета 40817 */  ?>
-					<div class="form-content"><p>Счет отправки перевода</p>
+					<div class="form-content"><label>Счет отправки перевода</label>
 						<label><div class="select-block"><select name="debit_account_number" required>
 							<option selected></option>
 							<?php
@@ -292,7 +292,7 @@
 				<div class="form-name"><p>Открытие вклада</p></div>
 				<form action="/client/open_deposit" method="POST">
 					<?php if (count($data['account_list']['all']) > 0) { /* есть счета 40817 */  ?>
-					<div class="form-content"><p>Вид вклада</p>
+					<div class="form-content"><label>Вид вклада</label>
 						<label><div class="select-block"><select name="type" required>
 							<option selected></option>
 							<?php
@@ -302,7 +302,7 @@
                             ?>
 						</select></div></label>
 					</div>
-					<div class="form-content"><p>Средства для вклада будут взяты со счета</p>
+					<div class="form-content"><label>Средства для вклада со счета</label>
 						<label><div class="select-block"><select name="debit_account_number" required>
 							<option selected></option>
                             <?php
@@ -334,7 +334,7 @@
 				<div class="form-name"><p>Закрытие вклада</p></div>
 				<form action="/client/close_deposit" method="POST">
 					<?php if (count($data['deposit_list']['all']) > 0) {  /* есть действующие вклады */ ?>
-					<div class="form-content"><p>Выберите вклад</p>
+					<div class="form-content"><label>Выберите вклад</label>
 						<label><div class="select-block"><select name="deposit_id" required>
 							<option selected></option>
 							<?php
@@ -346,7 +346,7 @@
                             ?>
 						</select></div></label>
 					</div>
-					<div class="form-content"><p>Средства будут перечислены на счет</p>
+					<div class="form-content"><label>Средства перечислятся</label>
 						<label><div class="select-block"><select name="account_number" required>
 							<option selected></option>
 							<?php
@@ -375,7 +375,7 @@
 				<a class="anchor" id="open_credit"></a>
 				<div class="form-name"><p>Выдача кредита</p></div>
 				<form action="/client/open_credit" method="POST">
-					<div class="form-content"><p>Вид кредита</p>
+					<div class="form-content"><label>Вид кредита</label>
 						<label><div class="select-block"><select name="type" required>
 							<option selected></option>
 							<?php
@@ -403,7 +403,7 @@
                 <div class="form-name"><p>Просмотр состояния и графика погашения по кредиту</p></div>
                 <form action="/graph" method="POST">
 					<?php if (count($data['credit_list']['all']) > 0) {  /* есть действующие кредиты */ ?>
-                        <div class="form-content"><p>Вид кредита</p>
+                        <div class="form-content"><label>Кредит</label>
                             <label><div class="select-block"><select name="credit_id" required>
                                 <option selected></option>
 								<?php
@@ -431,7 +431,7 @@
 				<div class="form-name"><p>Закрытие кредита</p></div>
 				<form action="client/close_credit" method="POST">
 					<?php if (count($data['credit_list']['all']) > 0) {  /* есть действующие кредиты */ ?>
-					<div class="form-content"><p>Вид кредита</p>
+					<div class="form-content"><label>Кредит</labelp>
 						<label><div class="select-block"><select name="credit_id" required>
 							<option selected></option>
 							<?php
