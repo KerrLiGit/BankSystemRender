@@ -18,7 +18,7 @@
 				<a class="anchor" id="transaction_acc"></a>
 				<div class="form-name"><p>Перевод средств между кассами и счетами банка</p></div>
 				<form action="/accountant/transaction_acc" method="POST">
-					<div class="form-content"><p>Счет отправки перевода (дебета)</p>
+					<div class="form-content"><label>Счет отправки перевода (дебета)</label>
 						<label><div class="select-block"><select name="debit_account_number" required>
 									<option selected></option>
 									<?php
@@ -31,7 +31,7 @@
                                     ?>
 								</select></div></label>
 					</div>
-					<div class="form-content"><p>Счет приема перевода (кредита)</p>
+					<div class="form-content"><label>Счет приема перевода (кредита)</label>
 						<label><div class="select-block"><select name="credit_account_number" required>
 									<option selected></option>
 									<?php
@@ -64,7 +64,7 @@
 				<div class="form-name"><p>Обновить курс валют</p></div>
 				<form action="/accountant/change_currency_cost" method="POST">
 					<div class="form-content">
-						<p>Валюта</p>
+						<label>Валюта</label>
 						<?php
 						$cnt = 0;
                         foreach ($data['currency'] as $currency) {
